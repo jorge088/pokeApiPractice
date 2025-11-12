@@ -1,7 +1,7 @@
 import styles from "./App.module.css"
 import { useState } from "react";
 import axios from "axios";
-import Card from "./components/Card";
+import PokemonCard from "./components/PokemonCard";
 
 const App = () => {
   const [pokemonName, setPokemonName] = useState("");
@@ -52,7 +52,7 @@ const App = () => {
       </form>
 
       {error && <p className={styles.errorMsg}>{error}</p>}
-      {pokemonData && <Card pokemon={pokemonData} />}
+      {pokemonData && <PokemonCard pokemon={pokemonData} />}
     </div>
   );
 }

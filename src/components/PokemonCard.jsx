@@ -1,6 +1,6 @@
 import styles from "./Card.module.css";
 
-const Card = ({ pokemon }) => {
+const PokemonCard = ({ pokemon }) => {
   return (
     <div className={styles.container}>
       <img
@@ -28,4 +28,4 @@ const Card = ({ pokemon }) => {
   );
 }
 
-export default Card;
+export default PokemonCard;
