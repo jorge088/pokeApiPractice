@@ -1,4 +1,4 @@
-import styles from "./Card.module.css";
+import styles from "./PokemonCard.module.css";
 
 const PokemonCard = ({ pokemon }) => {
   return (
