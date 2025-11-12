@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import styles from "./App.module.css"
+import { useState } from "react";
+import axios from "axios";
+import Card from "./components/Card";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [pokemonName, setPokemonName] = useState("");
+  const [pokemonData, setPokemonData] = useState(null);
+  const [error, setError] = useState("");
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setError("");
+    setPokemonData(null);
+    if (!pokemonName.trim()) {
+      setError("Por favor, ingresa un nombre de Pokémon.");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
+      );
+      setPokemonData(response.data);
+    } catch (err) {
+      setError("No se encontró ese Pokémon");
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div
+      className={styles.container}
+    >
+      <h1 className={styles.title}>
+        PokeApi practice
+      </h1>
+
+      <form onSubmit={handleSearch} className={styles.form}>
+        <input
+          type="text"
+          placeholder="Ingresa el nombre del Pokémon"
+          value={pokemonName}
+          onChange={(e) => setPokemonName(e.target.value)}
+          className={styles.pokemonInput}
+        />
+        <button
+          type="submit"
+          className={styles.searchButton}
+        >
+          Buscar
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </form>
+
+      {error && <p className={styles.errorMsg}>{error}</p>}
+      {pokemonData && <Card pokemon={pokemonData} />}
+    </div>
+  );
 }
 
-export default App
+export default App;

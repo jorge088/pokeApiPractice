@@ -1,0 +1,18 @@
+.container {
+    background-color: #424242;
+    box-shadow: 0 4px 10px rgba(167, 160, 160, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    width: 250px;
+    border-radius: 16px;
+}
+
+.image {
+    width: 150px;
+    height: 150px;
+}
+
+.pokemonName {
+    text-transform: capitalize;
+    margin: 0.5rem 0;
+}
