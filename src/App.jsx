@@ -1,7 +1,7 @@
 import styles from "./App.module.css"
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PokemonCard from "./components/PokemonCard";
+import PokemonResults from "./components/PokemonResults";
 
 const App = () => {
   const [pokemonName, setPokemonName] = useState("");
@@ -67,20 +67,8 @@ const App = () => {
           Buscar
         </button>
       </form>
-
       {error && <p className={styles.errorMsg}>{error}</p>}
-      <div>
-        <h3>
-          {
-            pokemonResults.length ? `Resultados encontrado ${pokemonResults.length}` : ''
-          }
-        </h3>
-      </div>
-      <div className={styles.resultsContainer}> 
-        {pokemonResults.map(pokemon => (
-          <PokemonCard pokemon={pokemon} key={pokemon.id}></PokemonCard>
-        ))}
-      </div>
+      <PokemonResults pokemons = {pokemonResults}></PokemonResults>
     </div>
   );
 }
