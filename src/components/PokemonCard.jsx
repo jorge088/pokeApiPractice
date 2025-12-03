@@ -1,6 +1,8 @@
 import styles from "./PokemonCard.module.css";
 
 const PokemonCard = ({ pokemon }) => {
+  console.log(pokemon);
+  
   return (
     <div className={styles.container}>
       <img
