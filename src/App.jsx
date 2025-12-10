@@ -1,8 +1,8 @@
 import styles from "./App.module.css"
 import { useState, useEffect } from "react";
-import axios from "axios";
 import PokemonResults from "./components/PokemonResults";
 import PokemonSearcher from "./components/PokemonSearcher";
+import { getAllPokemonList } from "./api/pokeApi";
 
 const App = () => {
   const [pokemonData, setPokemonData] = useState(null);
@@ -10,17 +10,15 @@ const App = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-      const fetchAllPokemons = async () => {
-        try {
-        const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0)}`
-        );
-        setPokemonData(response.data.results);
-        } catch (err) {
-          setError("No se pudo obtener información de los pokemones");
-        }
-      }
-      fetchAllPokemons();
+    const fetchData = async () => {
+    const data = await getAllPokemonList();
+    if (data) {
+      setPokemonData(data);
+    } else {
+      setError("No se pudo obtener información de los pokemones");
+    }
+    };
+    fetchData();
   },[]);
 
   const handlePokemonSearch = (results, error) => {
